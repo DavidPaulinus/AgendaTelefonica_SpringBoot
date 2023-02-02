@@ -60,6 +60,11 @@ public class ContatoControler {
 
 		return ResponseEntity.ok(cRep.findAllByFavoritoTrue(page).map(ContatoListaDTO::new));
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ContatoDetalhamentoDTO> detalharContato(@PathVariable Long id){
+		return ResponseEntity.ok(new ContatoDetalhamentoDTO(cRep.getReferenceById(id)));
+	}
 
 	@PutMapping
 	@Transactional
