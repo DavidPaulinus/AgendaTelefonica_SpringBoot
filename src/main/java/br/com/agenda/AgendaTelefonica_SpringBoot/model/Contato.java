@@ -24,6 +24,7 @@ public class Contato {
 	private String tipo;
 	private String email;
 	private Boolean favorito;
+
 	public Contato(ContatoDTO dto) {
 		super();
 		this.nome = dto.nome();
@@ -32,6 +33,5 @@ public class Contato {
 		this.email = dto.email();
 		this.favorito = dto.favorito();
 	}
-	
-	
+
 }
