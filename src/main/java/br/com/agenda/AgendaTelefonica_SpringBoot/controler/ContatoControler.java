@@ -17,6 +17,7 @@ import br.com.agenda.AgendaTelefonica_SpringBoot.DTO.ContatoDTO;
 import br.com.agenda.AgendaTelefonica_SpringBoot.DTO.ContatoListaDTO;
 import br.com.agenda.AgendaTelefonica_SpringBoot.model.Contato;
 import br.com.agenda.AgendaTelefonica_SpringBoot.util.ContatoRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
@@ -34,18 +35,24 @@ public class ContatoControler {
 	
 	@GetMapping
 	public List<ContatoListaDTO> listar() {
-		System.out.println("\\Listando");
-		System.out.println("/Listado");
+		System.out.println("**Listando**");
 		return cRep.findAll().stream().map(ContatoListaDTO::new).toList();
 	}
 	
 	@GetMapping("/favorito")
 	public List<ContatoListaDTO> listarFavorito() {
-		System.out.println("\\Listando");
-		System.out.println("/Listado");
+		System.out.println("**Listando**");
 		return cRep.findAllByFavoritoTrue().stream().map(ContatoListaDTO::new).toList();
 	}
-		
+	
+	@PutMapping
+	@Transactional
+	public void atualizar(@RequestBody @Valid ContatoAtualizarDTO contt) {
+		System.out.println("\\Atualizando");
+		cRep.getReferenceById(contt.id()).atualizar(contt);
+		System.out.println("/Atualizado");
+	}
+	
 	@DeleteMapping("/{id}")
 	public void deletar(@PathVariable Long id) {
 		System.out.println("\\Deletando");
